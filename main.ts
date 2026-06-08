@@ -23,8 +23,8 @@ scene.onOverlapTile(SpriteKind.Player1, assets.tile`myTile1`, function (sprite, 
     game.gameOver(false)
 })
 function Level2 () {
-    tiles.placeOnRandomTile(mySprite20250603T195909998Z, sprites.dungeon.collectibleInsignia)
-    tiles.placeOnRandomTile(mySprite20250603T200211407Z, sprites.dungeon.collectibleInsignia)
+    tiles.placeOnRandomTile(blue, sprites.dungeon.collectibleInsignia)
+    tiles.placeOnRandomTile(red, sprites.dungeon.collectibleInsignia)
     for (let value of tiles.getTilesByType(assets.tile`myTile9`)) {
         mySprite = sprites.create(img`
             . . . . . . . . . . . . . . . . 
@@ -71,7 +71,7 @@ function Level2 () {
     }
 }
 controller.player2.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Pressed, function () {
-    scene.cameraFollowSprite(mySprite20250603T195909998Z)
+    scene.cameraFollowSprite(blue)
 })
 scene.onOverlapTile(SpriteKind.Player1, assets.tile`myTile2`, function (sprite, location) {
     sprites.destroyAllSpritesOfKind(SpriteKind.Player1, effects.fire, 500)
@@ -96,7 +96,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Projectile, function (sprite, ot
     info.changeScoreBy(1)
 })
 controller.player1.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Pressed, function () {
-    scene.cameraFollowSprite(mySprite20250603T200211407Z)
+    scene.cameraFollowSprite(red)
 })
 sprites.onOverlap(SpriteKind.Player1, SpriteKind.Projectile2, function (sprite, otherSprite) {
     sprites.destroy(mysprite900, effects.spray, 500)
@@ -105,9 +105,9 @@ sprites.onOverlap(SpriteKind.Player1, SpriteKind.Projectile2, function (sprite, 
 let mysprite900: Sprite = null
 let mySprite: Sprite = null
 let CurrentLevel = 0
-let mySprite20250603T200211407Z: Sprite = null
-let mySprite20250603T195909998Z: Sprite = null
-mySprite20250603T195909998Z = sprites.create(img`
+let red: Sprite = null
+let blue: Sprite = null
+blue = sprites.create(img`
     ...........................................................
     ...........................................................
     ...........................................................
@@ -169,7 +169,7 @@ mySprite20250603T195909998Z = sprites.create(img`
     ...........................................................
     ...........................................................
     `, SpriteKind.Player)
-mySprite20250603T200211407Z = sprites.create(img`
+red = sprites.create(img`
     ............................................................
     ............................................................
     ............................................................
@@ -232,10 +232,34 @@ mySprite20250603T200211407Z = sprites.create(img`
     ............................................................
     `, SpriteKind.Player1)
 CurrentLevel = 0
+let teehee = sprites.create(img`
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    f . . . . . . . . . . . . . . . 
+    `, SpriteKind.Player)
+let blueX = blue.x
+let blueY = blue.y
+let redX = red.x
+let redY = red.y
+teehee.setPosition(blueX - redX, blueY - redY)
 loadLevel()
-controller.moveSprite(mySprite20250603T200211407Z)
-controller.player2.moveSprite(mySprite20250603T195909998Z)
+controller.moveSprite(red)
+controller.player2.moveSprite(blue)
 tiles.setCurrentTilemap(tilemap`level1`)
+scene.cameraFollowSprite(teehee)
 for (let value of tiles.getTilesByType(assets.tile`myTile9`)) {
     mySprite = sprites.create(img`
         . . . . . . . . . . . . . . . . 
@@ -280,9 +304,9 @@ for (let value of tiles.getTilesByType(assets.tile`myTile17`)) {
     tiles.placeOnTile(mysprite900, value)
     tiles.setTileAt(value, assets.tile`myTile6`)
 }
-tiles.placeOnRandomTile(mySprite20250603T195909998Z, sprites.dungeon.collectibleInsignia)
-tiles.placeOnRandomTile(mySprite20250603T200211407Z, sprites.dungeon.collectibleInsignia)
-mySprite20250603T200211407Z.ay = 1000
-mySprite20250603T195909998Z.ay = 1000
+tiles.placeOnRandomTile(blue, sprites.dungeon.collectibleInsignia)
+tiles.placeOnRandomTile(red, sprites.dungeon.collectibleInsignia)
+red.ay = 1000
+blue.ay = 1000
 info.setScore(0)
 game.splash("Press the space bar to start! Remember to press button A to change who the camera follows every time you change player!")
