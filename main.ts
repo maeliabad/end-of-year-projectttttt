@@ -23,7 +23,7 @@ scene.onOverlapTile(SpriteKind.Player1, assets.tile`myTile1`, function (sprite, 
     game.gameOver(false)
 })
 function Level2 () {
-    tiles.placeOnRandomTile(blue, sprites.dungeon.collectibleInsignia)
+    tiles.placeOnRandomTile(null, sprites.dungeon.collectibleInsignia)
     tiles.placeOnRandomTile(red, sprites.dungeon.collectibleInsignia)
     for (let value of tiles.getTilesByType(assets.tile`myTile9`)) {
         mySprite = sprites.create(img`
@@ -92,14 +92,14 @@ function loadLevel () {
     }
 }
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Projectile, function (sprite, otherSprite) {
-    sprites.destroy(mySprite, effects.spray, 500)
+    sprites.destroy(otherSprite, effects.spray, 500)
     info.changeScoreBy(1)
 })
 controller.player1.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Pressed, function () {
     scene.cameraFollowSprite(red)
 })
 sprites.onOverlap(SpriteKind.Player1, SpriteKind.Projectile2, function (sprite, otherSprite) {
-    sprites.destroy(mysprite900, effects.spray, 500)
+    sprites.destroy(otherSprite, effects.spray, 500)
     info.changeScoreBy(1)
 })
 let mysprite900: Sprite = null
